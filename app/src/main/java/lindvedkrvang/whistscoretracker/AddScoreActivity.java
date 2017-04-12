@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +25,7 @@ import static lindvedkrvang.whistscoretracker.be.GameType.*;
 import static lindvedkrvang.whistscoretracker.be.Sticks.*;
 
 
-public class AddScoreActivity extends AppCompatActivity {
+public class AddScoreActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
     private Button btnCalculate;
     private Button btnBack;
@@ -75,7 +76,11 @@ public class AddScoreActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Gets the information parsed the user and then calculates the score and assign the score.
+     */
     private void handleCalculateButton(){
+        GameType gameType = (GameType) spnCall.getSelectedItem();
         Sticks stickToGet = (Sticks) spnSticks.getSelectedItem();
         String sticksGotten = txtSticksAchieved.getText().toString();
         String nameCaller = (String) spnCaller.getSelectedItem();
@@ -86,9 +91,9 @@ public class AddScoreActivity extends AppCompatActivity {
 
         if(mMathManager.isValidNumber(sticksGotten, mBoundForSticksAchievable)){
             int pointsToBeGiven = mMathManager.getPointsToBeGiven(stickToGet,
-                    (GameType) spnCall.getSelectedItem(), Integer.parseInt(sticksGotten));
+                    gameType, Integer.parseInt(sticksGotten));
             ArrayList<Player> list = mPlayerModel.getSortedPlayers(nameCaller, namePartner);
-            if(Integer.parseInt(sticksGotten) >= 0){
+            if((!gameType.equals(SUN) && Integer.parseInt(sticksGotten) >= 0) || (gameType.equals(SUN) && Integer.parseInt(sticksGotten) >= 1)){
                 assignPointsToPlayersWhereCallerWon(list, pointsToBeGiven, callerIsPartner);
             }else{
                 assignPointsToPlayersWhereCallerLost(list, pointsToBeGiven, callerIsPartner);
@@ -157,13 +162,12 @@ public class AddScoreActivity extends AppCompatActivity {
      */
     private void addAdaptersToSpinners(){
         ArrayAdapter<GameType> callAdapter = new ArrayAdapter<GameType>(this,
-                android.R.layout.simple_list_item_1, new GameType[]{REGULAR, VIP, STRONG, HALF});
+                android.R.layout.simple_list_item_1, new GameType[]{REGULAR, VIP, STRONG, HALF, SUN});
         callAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnCall.setAdapter(callAdapter);
 
-        ArrayAdapter<Sticks> sticksAdapter = new ArrayAdapter<Sticks>(this,
-                android.R.layout.simple_list_item_1, new Sticks[]{SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN});
-        spnSticks.setAdapter(sticksAdapter);
+        setNormalSticksAdapter();
+        spnCall.setOnItemSelectedListener(this);
 
         ArrayAdapter<String> callerAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, mPlayerModel.getPlayerNames());
@@ -174,6 +178,24 @@ public class AddScoreActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, mPlayerModel.getPlayerNames());
         partnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spnPartner.setAdapter(partnerAdapter);
+    }
+
+    /**
+     * Set spnCall to show options for Sun.
+     */
+    private void setSunSticksAdapter(){
+        ArrayAdapter<Sticks> adapter = new ArrayAdapter<Sticks>(this,
+                android.R.layout.simple_list_item_1, new Sticks[]{NORMAL, FULL, HALF_OPEN, FULL_OPEN});
+        spnSticks.setAdapter(adapter);
+    }
+
+    /**
+     * Sets spnCall to show normal options.
+     */
+    private void setNormalSticksAdapter(){
+        ArrayAdapter<Sticks> sticksAdapter = new ArrayAdapter<Sticks>(this,
+                android.R.layout.simple_list_item_1, new Sticks[]{SEVEN, EIGHT, NINE, TEN, ELEVEN, TWELVE, THIRTEEN});
+        spnSticks.setAdapter(sticksAdapter);
     }
 
     /**
@@ -188,5 +210,19 @@ public class AddScoreActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        if(parent.getItemAtPosition(position) == SUN){
+            setSunSticksAdapter();
+        }else{
+            setNormalSticksAdapter();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }

@@ -7,5 +7,9 @@ public enum Sticks {
     TEN,
     ELEVEN,
     TWELVE,
-    THIRTEEN
+    THIRTEEN,
+    NORMAL,
+    FULL,
+    HALF_OPEN,
+    FULL_OPEN
 }

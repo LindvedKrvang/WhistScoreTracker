@@ -4,5 +4,6 @@ public enum GameType {
     REGULAR,
     VIP,
     STRONG,
-    HALF
+    HALF,
+    SUN
 }

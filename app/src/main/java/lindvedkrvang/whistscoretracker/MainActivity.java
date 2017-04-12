@@ -3,15 +3,12 @@ package lindvedkrvang.whistscoretracker;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
-import lindvedkrvang.whistscoretracker.model.ScoreModel;
-
 public class MainActivity extends AppCompatActivity {
 
-    private Button mBtnBegin;
+    private Button btnBegin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +21,8 @@ public class MainActivity extends AppCompatActivity {
      * Sets onClickListeners on the buttons.
      */
     private void setOnClickListeners(){
-        mBtnBegin = (Button) findViewById(R.id.btnBegin);
-        mBtnBegin.setOnClickListener(new View.OnClickListener() {
+        btnBegin = (Button) findViewById(R.id.btnBegin);
+        btnBegin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goToPrepActivity();

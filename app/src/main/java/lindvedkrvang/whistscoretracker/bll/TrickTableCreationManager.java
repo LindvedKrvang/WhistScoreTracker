@@ -1,6 +1,7 @@
 package lindvedkrvang.whistscoretracker.bll;
 
 import lindvedkrvang.whistscoretracker.be.GameType;
+import lindvedkrvang.whistscoretracker.be.ScoreTable;
 import lindvedkrvang.whistscoretracker.be.TrickTable;
 
 public class TrickTableCreationManager {

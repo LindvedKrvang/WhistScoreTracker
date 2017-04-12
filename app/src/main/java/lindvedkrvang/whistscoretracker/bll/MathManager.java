@@ -36,7 +36,7 @@ public class MathManager {
             case THIRTEEN:
                 return new int[]{0,-13};
             default:
-                return null;
+                return new int[]{10,-10};
         }
     }
 
@@ -66,7 +66,10 @@ public class MathManager {
      * @return
      */
     public int getPointsToBeGiven(Sticks sticksToGet, GameType type, int sticksGotten){
-        if(sticksGotten >= 0){
+        if(type == GameType.SUN){
+            return mScoreModel.getSunPoints(sticksToGet);
+        }
+        else if(sticksGotten >= 0){
             return mScoreModel.getTrickTable(sticksToGet).getScoreTable(type).getPositiveScore()[sticksGotten];
         }else{
             return mScoreModel.getTrickTable(sticksToGet).getScoreTable(type).getNegativeScore()[Math.abs(sticksGotten)];
