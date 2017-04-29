@@ -1,6 +1,7 @@
 package lindvedkrvang.whistscoretracker.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import lindvedkrvang.whistscoretracker.be.Player;
 import lindvedkrvang.whistscoretracker.be.PlayerType;
@@ -57,6 +58,19 @@ public class PlayerModel {
             default:
                 return null;
         }
+    }
+
+    /**
+     * Returns a List with all the Players.
+     * @return
+     */
+    public List<Player> getPlayers(){
+        List<Player> list = new ArrayList<>();
+        list.add(mPlayerOne);
+        list.add(mPlayerTwo);
+        list.add(mPlayerThree);
+        list.add(mPlayerFour);
+        return list;
     }
 
     /**

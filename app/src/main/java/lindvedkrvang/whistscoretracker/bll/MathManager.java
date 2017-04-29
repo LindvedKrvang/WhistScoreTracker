@@ -1,6 +1,10 @@
 package lindvedkrvang.whistscoretracker.bll;
 
+import java.util.Collections;
+import java.util.List;
+
 import lindvedkrvang.whistscoretracker.be.GameType;
+import lindvedkrvang.whistscoretracker.be.Player;
 import lindvedkrvang.whistscoretracker.be.Sticks;
 import lindvedkrvang.whistscoretracker.model.ScoreModel;
 

@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import org.w3c.dom.Text;
 
+import java.util.Collections;
+import java.util.List;
+
 import lindvedkrvang.whistscoretracker.be.Player;
 import lindvedkrvang.whistscoretracker.be.PlayerType.*;
 import lindvedkrvang.whistscoretracker.model.PlayerModel;
@@ -51,7 +54,14 @@ public class OverviewActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-            setScore();
+        updateInformation();
+    }
+
+    private void updateInformation() {
+        List<Player> players = mPlayerModel.getPlayers();
+        Collections.sort(players);
+        setNames(players);
+        setScore(players);
     }
 
     /**
@@ -109,6 +119,17 @@ public class OverviewActivity extends AppCompatActivity {
     }
 
     /**
+     * Display the names of the players in the order of the List that is parsed.
+     * @param players
+     */
+    private void setNames(List<Player> players){
+        txtNameOne.setText(players.get(0).getName());
+        txtNameTwo.setText(players.get(1).getName());
+        txtNameThree.setText(players.get(2).getName());
+        txtNameFour.setText(players.get(3).getName());
+    }
+
+    /**
      * Sets the score in the activity.
      */
     private void setScore(){
@@ -116,6 +137,17 @@ public class OverviewActivity extends AppCompatActivity {
         txtScoreTwo.setText(String.valueOf(mPlayerModel.getPlayer(TWO).getScore()));
         txtScoreThree.setText(String.valueOf(mPlayerModel.getPlayer(THREE).getScore()));
         txtScoreFour.setText(String.valueOf(mPlayerModel.getPlayer(FOUR).getScore()));
+    }
+
+    /**
+     * Sets the score in the activity in the order of the parsed list.
+     * @param players
+     */
+    private void setScore(List<Player> players){
+        txtScoreOne.setText(String.valueOf(players.get(0).getScore()));
+        txtScoreTwo.setText(String.valueOf(players.get(1).getScore()));
+        txtScoreThree.setText(String.valueOf(players.get(2).getScore()));
+        txtScoreFour.setText(String.valueOf(players.get(3).getScore()));
     }
 
     /**

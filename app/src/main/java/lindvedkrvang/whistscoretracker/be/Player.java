@@ -1,6 +1,10 @@
 package lindvedkrvang.whistscoretracker.be;
 
-public class Player {
+import android.support.annotation.NonNull;
+
+import java.util.Iterator;
+
+public class Player implements Comparable<Player>{
 
     private String mName;
     private int mScore;
@@ -57,5 +61,10 @@ public class Player {
      */
     public String getName(){
         return mName;
+    }
+
+    @Override
+    public int compareTo(@NonNull Player o) {
+        return o.getScore() - mScore;
     }
 }
