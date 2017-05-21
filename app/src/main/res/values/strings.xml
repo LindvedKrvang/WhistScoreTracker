@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">WhistScoreTracker</string>
     <string name="dialog_wrong_number">Please enter a valid number that is possible to be achieve with the selected amount of sticks.</string>
+    <string name="dealing_player">*</string>
 </resources>
