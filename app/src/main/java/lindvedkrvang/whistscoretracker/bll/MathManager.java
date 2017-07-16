@@ -57,7 +57,7 @@ public class MathManager {
                 return true;
             }
         }catch (NumberFormatException nfe){
-
+            //Some error code here.
         }
         return false;
     }

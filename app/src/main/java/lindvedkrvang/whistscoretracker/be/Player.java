@@ -63,6 +63,14 @@ public class Player implements Comparable<Player>{
         return mName;
     }
 
+    /**
+     * Sets the score for the player to the parsed value;
+     * @param score
+     */
+    public void setScore(int score){
+        mScore = score;
+    }
+
     @Override
     public int compareTo(@NonNull Player o) {
         return o.getScore() - mScore;

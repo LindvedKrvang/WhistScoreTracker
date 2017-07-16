@@ -1,20 +1,21 @@
 package lindvedkrvang.whistscoretracker;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.Collections;
 import java.util.List;
 
 import lindvedkrvang.whistscoretracker.be.Player;
-import lindvedkrvang.whistscoretracker.be.PlayerType.*;
 import lindvedkrvang.whistscoretracker.model.PlayerModel;
 
 import static lindvedkrvang.whistscoretracker.be.PlayerType.FOUR;
@@ -37,6 +38,10 @@ public class OverviewActivity extends AppCompatActivity {
 
     private Button btnAddScore;
     private Button btnMenu;
+    private ImageView imgInformationIcon;
+    private ImageView imgPenIcon;
+
+    private Switch swSortByScore;
 
     private PlayerModel mPlayerModel;
 
@@ -46,7 +51,7 @@ public class OverviewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_overview);
         mPlayerModel = PlayerModel.getInstance();
         createPlayers();
-        setOnClickListeners();
+        setListeners();
         setTextViews();
         setNames();
     }
@@ -57,9 +62,13 @@ public class OverviewActivity extends AppCompatActivity {
         updateInformation();
     }
 
+
+
     private void updateInformation() {
         List<Player> players = mPlayerModel.getPlayers();
-        Collections.sort(players);
+        if(swSortByScore.isChecked()){
+            Collections.sort(players);
+        }
         setNames(players);
         setScore(players);
     }
@@ -75,7 +84,7 @@ public class OverviewActivity extends AppCompatActivity {
                 intent.getStringExtra("FOUR"));
     }
 
-    private void setOnClickListeners(){
+    private void setListeners(){
         btnAddScore = (Button) findViewById(R.id.btnAddScore);
         btnAddScore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,9 +97,80 @@ public class OverviewActivity extends AppCompatActivity {
         btnMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                displayDataLostWarning();
+            }
+        });
+
+        swSortByScore = (Switch) findViewById(R.id.swSortByScore);
+        swSortByScore.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                updateInformation();
+            }
+        });
+
+        imgInformationIcon = (ImageView) findViewById(R.id.imgInformationIcon);
+        imgInformationIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToScoreSchema();
+            }
+        });
+
+        imgPenIcon = (ImageView) findViewById(R.id.imgPenIcon);
+        imgPenIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToAddPointsActivity();
+            }
+        });
+    }
+
+    /**
+     * Goes to the ScoreSchema Activity.
+     */
+    private void goToScoreSchema(){
+        Intent intent = new Intent(this, ScoreSchema.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Goes to the AddPointsActivity.
+     */
+    private void goToAddPointsActivity(){
+        Intent intent = new Intent(this, AddPointsActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Creates an alertDialog that tells the user the data will be lost if he continues.
+     */
+    private void displayDataLostWarning(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
                 finish();
             }
         });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do nothing. Just close the dialog.
+            }
+        });
+        builder.setMessage("Are you sure you want to go the menu? All data will be lost.");
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * Intercepts the backButton when pressed and shows a warning dialog.
+     */
+    @Override
+    public void onBackPressed(){
+        displayDataLostWarning();
     }
 
     /**
@@ -130,7 +210,7 @@ public class OverviewActivity extends AppCompatActivity {
     }
 
     /**
-     * Sets the score in the activity.
+     * Sets the score in the activity in order of how the players were entered.
      */
     private void setScore(){
         txtScoreOne.setText(String.valueOf(mPlayerModel.getPlayer(ONE).getScore()));

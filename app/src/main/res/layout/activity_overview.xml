@@ -12,12 +12,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="20dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:id="@+id/linearLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
 
         <Button
             android:id="@+id/btnAddScore"
@@ -50,11 +49,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:layout_below="@+id/lblScore"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:orientation="vertical">
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,4 +169,36 @@
                 android:textStyle="bold"/>
         </LinearLayout>
     </LinearLayout>
+
+    <Switch
+        android:id="@+id/swSortByScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sort by score: "
+        android:layout_above="@+id/linearLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="35dp"
+        android:layout_marginBottom="10dp"/>
+
+    <ImageView
+        android:id="@+id/imgInformationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/information_icon"
+        android:paddingRight="20dp"
+        android:layout_alignBottom="@+id/swSortByScore"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+
+    <ImageView
+        android:id="@+id/imgPenIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgInformationIcon"
+        android:layout_toLeftOf="@+id/imgInformationIcon"
+        android:layout_toStartOf="@+id/imgInformationIcon"
+        app:srcCompat="@drawable/pen_icon"
+        android:layout_marginRight="20dp"/>
+
 </RelativeLayout>
