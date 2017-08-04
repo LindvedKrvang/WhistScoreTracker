@@ -13,6 +13,7 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -135,15 +136,28 @@ public class OverviewActivity extends AppCompatActivity {
         imgUndoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                try {
-                    HashMap<PlayerType, Integer> map = mPlayerModel.getUndoScore();
-                    mPlayerModel.setScore(map);
-                    updateInformation();
-                }catch (NullPointerException npe){
-                    Log.d("TEST", npe.getMessage());
-                }
+                displayUndoWarning();
             }
         });
+    }
+
+    /**
+     * Gets the score for the previous round and updates the model with it.
+     */
+    private void handleUndoButton(){
+        try {
+            HashMap<PlayerType, Integer> map = mPlayerModel.getUndoScore();
+            mPlayerModel.setScore(map);
+            updateInformation();
+        }catch (NullPointerException npe){
+            Log.d("TEST", npe.getMessage());
+
+            String text = "Can't undo what hasn't been done";
+            int duration = Toast.LENGTH_LONG;
+
+            Toast toast = Toast.makeText(this, text, duration);
+            toast.show();
+        }
     }
 
     /**
@@ -180,6 +194,29 @@ public class OverviewActivity extends AppCompatActivity {
             }
         });
         builder.setMessage("Are you sure you want to go the menu? All data will be lost.");
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * Creates an alertDialog that ask if the user wants to undo last move.
+     */
+    private void displayUndoWarning(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                handleUndoButton();
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                //Do nothing. Just close the dialog.
+            }
+        });
+        builder.setMessage("Are you sure you want to undo last move?");
 
         AlertDialog dialog = builder.create();
         dialog.show();
