@@ -41,7 +41,12 @@ public class AddPointsActivity extends AppCompatActivity {
         setNames();
     }
 
+    /**
+     * Gets the points for each player entered by the user and assigns them to the player.
+     */
     private void assignPoints(){
+        mPlayerModel.saveFormerRoundScore();
+
         List<Player> players = mPlayerModel.getPlayers();
         int pointsPlayerOne, pointsPlayerTwo, pointsPlayerThree, pointsPlayerFour;
             pointsPlayerOne = getPointsFromTextField(etxtNameOne);
@@ -57,7 +62,12 @@ public class AddPointsActivity extends AppCompatActivity {
             finish();
     }
 
-
+    /**
+     * Gets the points from the parsed textfield.
+     * If no points are entered. Returns 0.
+     * @param etxt
+     * @return
+     */
     private int getPointsFromTextField(EditText etxt){
         try{
             return Integer.parseInt(etxt.getText() + "");
@@ -66,6 +76,9 @@ public class AddPointsActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * Sets the names to be displayed in the activity.
+     */
     private void setNames(){
         String[] playerNames = mPlayerModel.getPlayerNames();
         txtNameOne.setText(playerNames[0]);
@@ -74,6 +87,9 @@ public class AddPointsActivity extends AppCompatActivity {
         txtNameFour.setText(playerNames[3]);
     }
 
+    /**
+     * Sets the lsiteners.
+     */
     private void setListeners(){
         btnAssign = (Button) findViewById(R.id.btnAddPointsAssign);
         btnAssign.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +108,9 @@ public class AddPointsActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * Sets the textViews.
+     */
     private void setTextViews(){
         txtNameOne = (TextView) findViewById(R.id.txtAddPointsName1);
         txtNameTwo = (TextView) findViewById(R.id.txtAddPointsName2);
@@ -99,6 +118,9 @@ public class AddPointsActivity extends AppCompatActivity {
         txtNameFour = (TextView) findViewById(R.id.txtAddPointsName4);
     }
 
+    /**
+     * Sets the editTextviews.
+     */
     private void setEditTexts(){
         etxtNameOne = (EditText) findViewById(R.id.nbAddPointsName1);
         etxtNameTwo = (EditText) findViewById(R.id.nbAddPointsName2);

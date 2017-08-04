@@ -2,6 +2,7 @@ package lindvedkrvang.whistscoretracker;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.support.annotation.IntegerRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,9 +15,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import lindvedkrvang.whistscoretracker.be.Player;
+import lindvedkrvang.whistscoretracker.be.PlayerType;
 import lindvedkrvang.whistscoretracker.model.PlayerModel;
 
 import static lindvedkrvang.whistscoretracker.be.PlayerType.FOUR;
@@ -131,10 +135,12 @@ public class OverviewActivity extends AppCompatActivity {
         imgUndoIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO RKL: Make able to undo last points entered.
-                List<Integer> list = mPlayerModel.testForUndo();
-                for (int number: list) {
-                    Log.d("TEST", "Here is your number: " + number);
+                try {
+                    HashMap<PlayerType, Integer> map = mPlayerModel.getUndoScore();
+                    mPlayerModel.setScore(map);
+                    updateInformation();
+                }catch (NullPointerException npe){
+                    Log.d("TEST", npe.getMessage());
                 }
             }
         });
