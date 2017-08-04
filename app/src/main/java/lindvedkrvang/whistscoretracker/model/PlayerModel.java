@@ -1,6 +1,7 @@
 package lindvedkrvang.whistscoretracker.model;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import lindvedkrvang.whistscoretracker.be.Player;
@@ -18,6 +19,8 @@ public class PlayerModel {
     private Player mPlayerThree;
     private Player mPlayerFour;
 
+    private HashMap<PlayerType, Integer> mScoreFromRoundBefore;
+
     public static PlayerModel getInstance(){
         if (instance == null){
             instance = new PlayerModel();
@@ -27,6 +30,7 @@ public class PlayerModel {
 
     public PlayerModel(){
         mPlayerManager = new PlayerManager();
+        mScoreFromRoundBefore = new HashMap<>();
     }
 
     /**
@@ -96,4 +100,24 @@ public class PlayerModel {
     public String[] getPlayerNames(){
         return new String[]{mPlayerOne.getName(), mPlayerTwo.getName(), mPlayerThree.getName(), mPlayerFour.getName()};
     }
+
+    /**
+     * Saves the current score of the players, so it can be retrieved later.
+     */
+    public void saveFormerRoundScore(){
+        mScoreFromRoundBefore.put(PlayerType.ONE, mPlayerOne.getScore());
+        mScoreFromRoundBefore.put(PlayerType.TWO, mPlayerTwo.getScore());
+        mScoreFromRoundBefore.put(PlayerType.THREE, mPlayerThree.getScore());
+        mScoreFromRoundBefore.put(PlayerType.FOUR, mPlayerFour.getScore());
+    }
+
+    public List<Integer> testForUndo(){
+        List<Integer> list = new ArrayList<>();
+        list.add(mScoreFromRoundBefore.get(PlayerType.ONE));
+        list.add(mScoreFromRoundBefore.get(PlayerType.TWO));
+        list.add(mScoreFromRoundBefore.get(PlayerType.THREE));
+        list.add(mScoreFromRoundBefore.get(PlayerType.FOUR));
+        return list;
+    }
+
 }

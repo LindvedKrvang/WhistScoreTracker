@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
@@ -40,6 +41,7 @@ public class OverviewActivity extends AppCompatActivity {
     private Button btnMenu;
     private ImageView imgInformationIcon;
     private ImageView imgPenIcon;
+    private ImageView imgUndoIcon;
 
     private Switch swSortByScore;
 
@@ -122,6 +124,18 @@ public class OverviewActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 goToAddPointsActivity();
+            }
+        });
+
+        imgUndoIcon = (ImageView) findViewById(R.id.imgUndoIcon);
+        imgUndoIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //TODO RKL: Make able to undo last points entered.
+                List<Integer> list = mPlayerModel.testForUndo();
+                for (int number: list) {
+                    Log.d("TEST", "Here is your number: " + number);
+                }
             }
         });
     }

@@ -201,4 +201,14 @@
         app:srcCompat="@drawable/pen_icon"
         android:layout_marginRight="20dp"/>
 
+    <ImageView
+        android:id="@+id/imgUndoIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imgPenIcon"
+        android:layout_toLeftOf="@+id/imgPenIcon"
+        android:layout_toStartOf="@+id/imgPenIcon"
+        app:srcCompat="@drawable/undo_icon"
+        android:layout_marginRight="20dp"/>
+
 </RelativeLayout>
