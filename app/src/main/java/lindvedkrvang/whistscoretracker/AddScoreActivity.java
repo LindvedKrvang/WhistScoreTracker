@@ -90,6 +90,8 @@ public class AddScoreActivity extends AppCompatActivity implements AdapterView.O
         mBoundForSticksAchievable = mMathManager.getBoundForSticksAchievable(stickToGet);
 
         if(mMathManager.isValidNumber(sticksGotten, mBoundForSticksAchievable)){
+            mPlayerModel.saveFormerRoundScore();
+
             int pointsToBeGiven = mMathManager.getPointsToBeGiven(stickToGet,
                     gameType, Integer.parseInt(sticksGotten));
             ArrayList<Player> list = mPlayerModel.getSortedPlayers(nameCaller, namePartner);
