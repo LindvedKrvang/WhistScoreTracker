@@ -20,17 +20,19 @@
 
         <Button
             android:id="@+id/btnAddScore"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Add Score"/>
+            android:text="Add Score" />
 
         <Button
             android:id="@+id/btnMenu"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Menu"/>
+            android:text="Menu" />
     </LinearLayout>
 
     <TextView

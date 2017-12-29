@@ -144,19 +144,21 @@
 
         <Button
             android:id="@+id/btnAddPointsAssign"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_weight="1"
-            android:text="Assign"/>
+            android:text="Assign" />
 
         <Button
             android:id="@+id/btnAddPointsBack"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back"/>
+            android:text="Back" />
     </LinearLayout>
 
     <TextView
