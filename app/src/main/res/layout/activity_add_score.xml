@@ -20,17 +20,19 @@
 
         <Button
             android:id="@+id/btnCalculate"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Calculate"/>
+            android:text="Calculate" />
 
         <Button
             android:id="@+id/btnScoreBack"
+            style="@android:style/Widget.DeviceDefault.Button.Inset"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Back"/>
+            android:text="Back" />
 
     </LinearLayout>
 
