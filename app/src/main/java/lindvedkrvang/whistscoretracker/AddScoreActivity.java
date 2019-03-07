@@ -114,11 +114,11 @@ public class AddScoreActivity extends AppCompatActivity implements AdapterView.O
      */
     private void assignPointsToPlayersWhereCallerWon(ArrayList<Player> list, int points, boolean callerIsPartner){
         if(callerIsPartner){
-            list.get(0).addPoints(points);
-            int pointsForLosers = points/3;
-            list.get(1).substractPoints(pointsForLosers);
-            list.get(2).substractPoints(pointsForLosers);
-            list.get(3).substractPoints(pointsForLosers);
+            int pointsForWinner = points * 3;
+            list.get(0).addPoints(pointsForWinner);
+            list.get(1).substractPoints(points);
+            list.get(2).substractPoints(points);
+            list.get(3).substractPoints(points);
         }else{
             list.get(0).addPoints(points);
             list.get(1).addPoints(points);
@@ -135,11 +135,11 @@ public class AddScoreActivity extends AppCompatActivity implements AdapterView.O
      */
     private void assignPointsToPlayersWhereCallerLost(ArrayList<Player> list, int points, boolean callerIsPartner){
         if(callerIsPartner){
-            list.get(0).substractPoints(points);
-            int pointsForWinners = points/3;
-            list.get(1).addPoints(pointsForWinners);
-            list.get(2).addPoints(pointsForWinners);
-            list.get(3).addPoints(pointsForWinners);
+            int pointsForLoser = points * 3;
+            list.get(0).substractPoints(pointsForLoser);
+            list.get(1).addPoints(points);
+            list.get(2).addPoints(points);
+            list.get(3).addPoints(points);
         }else{
             list.get(0).substractPoints(points);
             list.get(1).substractPoints(points);
