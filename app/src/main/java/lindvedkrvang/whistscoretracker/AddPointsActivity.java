@@ -1,5 +1,7 @@
 package lindvedkrvang.whistscoretracker;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -47,8 +49,9 @@ public class AddPointsActivity extends AppCompatActivity {
     private void assignPoints(){
         mPlayerModel.saveFormerRoundScore();
 
-        List<Player> players = mPlayerModel.getPlayers();
-        int pointsPlayerOne, pointsPlayerTwo, pointsPlayerThree, pointsPlayerFour;
+        try {
+            List<Player> players = mPlayerModel.getPlayers();
+            int pointsPlayerOne, pointsPlayerTwo, pointsPlayerThree, pointsPlayerFour;
             pointsPlayerOne = getPointsFromTextField(etxtNameOne);
             pointsPlayerTwo = getPointsFromTextField(etxtNameTwo);
             pointsPlayerThree = getPointsFromTextField(etxtNameThree);
@@ -60,6 +63,9 @@ public class AddPointsActivity extends AppCompatActivity {
             players.get(3).setScore(pointsPlayerFour);
 
             finish();
+        }catch (NumberFormatException ex){
+            displayNotANumberDialog();
+        }
     }
 
     /**
@@ -69,11 +75,21 @@ public class AddPointsActivity extends AppCompatActivity {
      * @return
      */
     private int getPointsFromTextField(EditText etxt){
-        try{
-            return Integer.parseInt(etxt.getText() + "");
-        }catch (NumberFormatException nfe){
-            return 0;
-        }
+        return Integer.parseInt(etxt.getText() + "");
+    }
+
+    private void displayNotANumberDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setNegativeButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //Do nothing. Just close the dialog.
+            }
+        });
+        builder.setMessage("Please enter valid numbers...");
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     /**
